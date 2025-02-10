@@ -10,7 +10,7 @@ def home(request):
 
 def employee_list(request):
     employees = Employee.objects.all()
-    return render(request, "myapp/index.html", {"employees": employees})
+    return render(request, "myapp/employee_list.html", {"employees": employees})
 
 
 def add_employee(request):
