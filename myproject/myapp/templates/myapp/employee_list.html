@@ -16,6 +16,7 @@
             <th>Email</th>
             <th>Salary</th>
             <th>Joined Date</th>
+            <th>Actions</th>
         </tr>
         {% for employee in employees %}
         <tr>
@@ -25,6 +26,10 @@
             <td>{{ employee.email }}</td>
             <td>{{ employee.salary }}</td>
             <td>{{ employee.joined_date }}</td>
+            <td>
+                <a href="{% url 'edit-employee' employee.id %}">Edit</a> |
+                <a href="{% url 'delete-employee' employee.id %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
