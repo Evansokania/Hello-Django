@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterForm, EmployeeForm
+from django.http import HttpResponseForbidden
 from .models import Employee
 
 # Create your views here.
@@ -74,8 +75,13 @@ def edit_employee(request, pk):
 
 @login_required
 def delete_employee(request, pk):
+    if not request.user.is_admin:  # Only admins can delete
+        return HttpResponseForbidden("You are not allowed to delete employees.")
+    
     employee = get_object_or_404(Employee, pk=pk)
+    
     if request.method == "POST":
         employee.delete()
         return redirect("employee-list")
+    
     return render(request, "myapp/delete_employee.html", {"employee": employee})
