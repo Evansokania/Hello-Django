@@ -1,0 +1,13 @@
+{% extends 'myapp/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Welcome to Employee Management System</h1>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}! <a href="{% url 'employee-list' %}" class="btn btn-primary">View Employees</a></p>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to manage employees.</p>
+    {% endif %}
+</div>
+{% endblock %}

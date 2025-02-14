@@ -1,41 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee List</title>
-</head>
-<body>
+{% extends 'myapp/base.html' %}
+{% block title %}Employee List{% endblock %}
+
+{% block content %}
+<div class="container">
     <h2>Employee List</h2>
-    <p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Salary</th>
-            <th>Joined Date</th>
-            <th>Actions</th>
-        </tr>
-        {% for employee in employees %}
-        <tr>
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.first_name }}</td>
-            <td>{{ employee.last_name }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.salary }}</td>
-            <td>{{ employee.joined_date }}</td>
-            <td>
-                <a href="{% url 'edit-employee' employee.id %}">Edit</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>Joined Date</th>
                 {% if user.is_admin %}
-                    | <a href="{% url 'delete-employee' employee.id %}">Delete</a>
+                    <th>Actions</th>
                 {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>${{ employee.salary }}</td>
+                <td>{{ employee.joined_date }}</td>                
+                <td>
+                    <a href="{% url 'edit-employee' employee.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    {% if user.is_admin %}
+                     <a href="{% url 'delete-employee' employee.id %}" class="btn btn-danger btn-sm">Delete</a>                               
+                    {% endif %}
+                    </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-    <br>
-    <a href="{% url 'add-employee' %}">Add New Employee</a>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -56,9 +56,9 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, "myapp/login.html", {"form": form})
 
-def user_logout(request):
-    logout(request)
-    return redirect("login")
+# def user_logout(request):
+#     logout(request)
+#     return redirect("login")
 
 @login_required
 def employee_list(request):
@@ -90,3 +90,9 @@ def delete_employee(request, pk):
         return redirect("employee-list")
     
     return render(request, "myapp/delete_employee.html", {"employee": employee})
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")  # Redirect to home after logout

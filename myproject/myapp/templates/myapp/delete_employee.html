@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,4 +14,19 @@
         <a href="{% url 'employee-list' %}">Cancel</a>
     </form>
 </body>
-</html>
+</html> {% endcomment %}
+
+
+{% extends 'myapp/base.html' %}
+{% block title %}Delete Employee{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Delete Employee: {{ employee.first_name }} {{ employee.last_name }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Yes, Delete</button>
+        <a href="{% url 'employee-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
